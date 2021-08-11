@@ -1,0 +1,21 @@
+#45번
+
+CREATE TABLE TAB1
+(COL1 VARCHAR(1) NOT NULL,
+COL2 VARCHAR2(10) NULL
+);
+
+INSERT INTO TAB1
+(COL1, COL2) -- 모든 컬럼이 COL1,COL2이기 때문에 생략가능
+VALUES
+('a','null'),
+('b',''),
+('c','3'),
+('d','4'),
+('e','3');
+
+
+-- 정답 OOO
+SELECT COUNT(COL1) FROM TAB1 WHERE COL2 IS NULL;
+-- 오답 XXX
+SELECT COUNT(COL1) FROM TAB1 WHERE COL2 = NULL;
