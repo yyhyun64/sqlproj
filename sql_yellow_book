@@ -1,4 +1,4 @@
-#45번
+--#45번
 
 CREATE TABLE TAB1
 (COL1 VARCHAR(1) NOT NULL,
@@ -19,3 +19,17 @@ VALUES
 SELECT COUNT(COL1) FROM TAB1 WHERE COL2 IS NULL;
 -- 오답 XXX
 SELECT COUNT(COL1) FROM TAB1 WHERE COL2 = NULL;
+
+--#66
+SELECT *
+FROM Orders A, Shippers B
+WHERE A.ShipperID=B.ShipperID;
+
+SELECT A.OrderID, A.ShipperID, B.Phone
+FROM Orders A  JOIN Shippers B
+ON (A.ShipperID=B.ShipperID)
+
+--#69
+SELECT EmployeeID E, ShipperID S, SUM(EmployeeID * ShipperID) AS SUM, COUNT(EmployeeID * ShipperID) AS CNT
+FROM Orders
+GROUP BY E, S;
