@@ -33,3 +33,28 @@ ON (A.ShipperID=B.ShipperID)
 SELECT EmployeeID E, ShipperID S, SUM(EmployeeID * ShipperID) AS SUM, COUNT(EmployeeID * ShipperID) AS CNT
 FROM Orders
 GROUP BY E, S;
+
+--#105
+CREATE TABLE 서비스
+(서비스ID VARCHAR(3) NOT NULL,
+서비스명 VARCHAR2(4) NULL);
+
+INSERT INTO 서비스 
+VALUES ('001', '서비스1'),
+('002', '서비스2'),
+('003', '서비스3'),
+('004', '서비스4');
+
+CREATE TABLE 서비스가입
+(회원번호 VARCHAR(1),
+서비스ID VARCHAR(3),
+개별일자 VARCHAR2(20)
+);
+
+INSERT INTO 서비스가입
+VALUES
+('1', '001', '2013-01-01'),
+('1', '002', '2013-01-02'),
+('2', '001', '2013-01-01'),
+('2', '002', '2013-01-02'),
+('2', '003', '2013-01-03');
