@@ -37,24 +37,28 @@ GROUP BY E, S;
 --#105
 CREATE TABLE 서비스
 (서비스ID VARCHAR(3) NOT NULL,
-서비스명 VARCHAR2(4) NULL);
+서비스명 VARCHAR2(20) NULL);
 
-INSERT INTO 서비스 
-VALUES ('001', '서비스1'),
-('002', '서비스2'),
-('003', '서비스3'),
-('004', '서비스4');
+INSERT INTO 서비스 VALUES ('001', '서비스1');
+INSERT INTO 서비스 VALUES ('002', '서비스2');
+INSERT INTO 서비스 VALUES ('003', '서비스3');
+INSERT INTO 서비스 VALUES ('004', '서비스4');
 
 CREATE TABLE 서비스가입
 (회원번호 VARCHAR(1),
 서비스ID VARCHAR(3),
-개별일자 VARCHAR2(20)
+가입일자 VARCHAR2(20)
 );
 
-INSERT INTO 서비스가입
-VALUES
-('1', '001', '2013-01-01'),
-('1', '002', '2013-01-02'),
-('2', '001', '2013-01-01'),
-('2', '002', '2013-01-02'),
-('2', '003', '2013-01-03');
+INSERT INTO 서비스가입 VALUES ('1', '001', '2013-01-01');
+INSERT INTO 서비스가입 VALUES ('1', '002', '2013-01-02');
+INSERT INTO 서비스가입 VALUES ('2', '001', '2013-01-01');
+INSERT INTO 서비스가입 VALUES ('2', '002', '2013-01-02');
+INSERT INTO 서비스가입 VALUES ('2', '003', '2013-01-03');
+
+SELECT CASE WHEN GROUPING(A.서비스ID)=0 THEN A.서비스ID ELSE '합계' END AS 서비스ID,
+CASE WHEN GROUPING(B.가입일자)=0 THEN NVL(B.가입일자,'-') ELSE '소계' END AS 가입일자,
+COUNT(B.회원번호) AS 가입건수
+FROM 서비스 A LEFT OUTER JOIN 서비스가입 B
+ON (A.서비스ID=B.서비스ID)
+GROUP BY ROLLUP (A.서비스ID, B.가입일자);
